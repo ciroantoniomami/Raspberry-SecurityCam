@@ -25,6 +25,7 @@ class Yolo_Block(nn.Module):
         self.conv5 = nn.Conv2d(512,255,1,1)
         self.head = nn.Conv2d(255,B*(5+num_classes),1,1)
         self.B = B
+        self.num_classes = num_classes
         
 
     def forward(self,x):
@@ -37,7 +38,7 @@ class Yolo_Block(nn.Module):
         feat1 = self.conv2(feat1)
         feat1 = self.conv4(feat1)
         feat2 = self.conv5(feat2)
-        return self.head(feat2).reshape(feat2.shape[0], self.B, 2 + 5, feat2.shape[2], feat2.shape[3]).permute(0, 1, 3, 4, 2),self.head(feat1).reshape(feat1.shape[0], self.B, 2 + 5, feat1.shape[2], feat1.shape[3]).permute(0, 1, 3, 4, 2)
+        return self.head(feat2).reshape(feat2.shape[0], self.B, self.num_classes + 5, feat2.shape[2], feat2.shape[3]).permute(0, 1, 3, 4, 2),self.head(feat1).reshape(feat1.shape[0], self.B, self.num_classes+ 5, feat1.shape[2], feat1.shape[3]).permute(0, 1, 3, 4, 2)
     
 class Yolo(object):
 
@@ -49,7 +50,7 @@ class Yolo(object):
         Loads a pre-trained pytorch model and
         sets it to evaluation mode. 
         """
-        self.net=Yolo_Block(3,3,2).eval()
+        self.net=Yolo_Block(3,3,1).eval()
         model_dict=torch.load("./models/model.pt", map_location = use_gpu_if_possible())
         self.net.load_state_dict(model_dict)
         
@@ -85,7 +86,7 @@ class Yolo(object):
             for box in boxes:
                 if box[0] == 0: 
                         color = (0,250,154)
-                        label = 'mask'
+                        label = 'Person'
                 else: 
                         color = (255, 0, 0)
                         label = 'no mask'
