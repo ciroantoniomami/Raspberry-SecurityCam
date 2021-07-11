@@ -51,7 +51,7 @@ class Yolo(object):
         sets it to evaluation mode. 
         """
         self.net=Yolo_Block(3,3,1).eval()
-        model_dict=torch.load("./models/model.pt", map_location = use_gpu_if_possible())
+        model_dict=torch.load("./models/aug.pt", map_location = use_gpu_if_possible())
         self.net.load_state_dict(model_dict)
         
 
@@ -82,9 +82,11 @@ class Yolo(object):
                 
             boxes = non_max_suppression(boxes, iou_threshold= iou_thresh, threshold=tresh)
             
+            strunz = False
 
             for box in boxes:
                 if box[0] == 0: 
+                        strunz = True
                         color = (0,250,154)
                         label = 'Person'
                 else: 
@@ -102,7 +104,7 @@ class Yolo(object):
                 CV2_frame = cv2.rectangle(CV2_frame, p0, p1, color, thickness=2)
                 cv2.putText(CV2_frame, label + "{:.2f}".format(p*100) + '%', (int((box[0] - box[2]/2)*height), 
                             int((box[1] - box[3]/2)*width)-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, color, 2)
-            return CV2_frame           
+            return CV2_frame , strunz          
 
 
 

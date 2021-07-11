@@ -46,9 +46,11 @@ class Yolo(nn.Module):
 if __name__ == '__main__':
     
     x = torch.rand(1,3,416,416)
-    model = Yolo(3,3,2)
+    model = Yolo(3,3,1)
     #model.detect(x)
     y = model(x)
+    #print(y[0].shape)
+    #print(y[1].shape)
     
 
 
