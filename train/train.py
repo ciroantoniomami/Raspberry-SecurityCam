@@ -283,7 +283,7 @@ if __name__ == "__main__":
     ANCHORS = [[(0.5309375, 0.7936855), (0.185625 , 0.439242), (0.081953 , 0.2478555   )], [(0.04875  , 0.125694 ), (0.014375 , 0.03857 ), (0.025    , 0.075047  )]]
 
     
-    train_loader, test_loader = get_data('/dataset/train.csv','/dataset/test.csv')
+    train_loader, test_loader = get_data('dataset/train.csv','dataset/test.csv')
     
     scaled_anchors = (
         torch.tensor(ANCHORS)
@@ -293,12 +293,12 @@ if __name__ == "__main__":
     scheduler = torch.optim.lr_scheduler.StepLR(optimizer_SGD, step_size=20, gamma=1.1)
     if str(sys.argv[-1]) == "SGD":
         optimizer = optimizer_SGD
-        model_save_name = '/models/model_SGD.pt'
+        model_save_name = 'models/model_SGD.pt'
         scheduler = scheduler
     
     if str(sys.argv[-1]) == "RADAM":
         optimizer = optimizer_RAdam
-        model_save_name = '/models/bighead.pt'
+        model_save_name = 'models/bighead.pt'
         scheduler = None
 
     scaler = torch.cuda.amp.GradScaler()
