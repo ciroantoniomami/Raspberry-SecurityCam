@@ -7,11 +7,13 @@ import torch
 from torchvision import transforms
 import time
 import matplotlib.pyplot as plt
+import telegram_send
+import telegram.bot as tl
 
 if __name__ == "__main__":
+    bot =  tl.Bot(token = "1798061564:AAFRKoi3oXbEpdpT0ECpeoOcarfGB-OQNWU")
 
-    ANCHORS = [[(0.275,   0.320312), (0.068, 0.113281), (0.017,  0.03)],
-               [(0.03,   0.056), (0.01,   0.018), (0.006,   0.01)]]
+    ANCHORS = [[(0.5309375, 0.7936855), (0.185625 , 0.439242), (0.081953 , 0.2478555   )], [(0.04875  , 0.125694 ), (0.014375 , 0.03857 ), (0.025    , 0.075047  )]]
     S = [13, 26]
     scaled_anchors = torch.tensor(ANCHORS) / (
         1 / torch.tensor(S).unsqueeze(1).unsqueeze(1).repeat(1, 3, 2))
@@ -20,7 +22,7 @@ if __name__ == "__main__":
 
     
 
-    cap = cv.VideoCapture("tg.mp4")
+    cap = cv.VideoCapture(0)
     
     if not cap.isOpened():
         print("Cannot open camera")
@@ -45,8 +47,13 @@ if __name__ == "__main__":
         frame_tensor = transforms.ToTensor()(frame).unsqueeze_(0)
         
          
-        frame = model.detect(frame, frame_tensor, scaled_anchors)
+        frame, strunz= model.detect(frame, frame_tensor, scaled_anchors)
         frame = cv.cvtColor(frame, cv.COLOR_RGB2BGR)
+        #if strunz:
+            #cv.imwrite('photo.jpg',frame)
+            #telegram_send.send(messages=["ATTENTO ALLO STRUNZZ!"])
+            #bot.send_photo(chat_id=456383400, photo=open('photo.jpg', 'rb'))
+
         count += 1
         fps = 1/(new_frame_time-prev_frame_time)
         history_fps.append(fps)
@@ -63,6 +70,8 @@ if __name__ == "__main__":
             cap.release()
             cv.destroyAllWindows()
             break
+        
+        #time.sleep(2)
     
     plt.plot(history_fps)
     plt.ylabel("FPS")

@@ -49,8 +49,8 @@ if __name__ == '__main__':
     model = Yolo(3,3,1)
     #model.detect(x)
     y = model(x)
-    #print(y[0].shape)
-    #print(y[1].shape)
+    print(y[0].shape)
+    print(y[1].shape)
     
 
 

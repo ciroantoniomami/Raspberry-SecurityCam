@@ -33,9 +33,9 @@ class CSPBlock(nn.Module):
         x = self.conv4(x)
         feat1 = x
         x = torch.cat([feat, x], dim=1)
-        #feat2 = self.maxpool(x)
+        feat2 = self.maxpool(x)
 
-        return x
+        return feat2
 
 
 
