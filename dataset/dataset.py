@@ -84,7 +84,7 @@ class CustomYoloDataset(Dataset):
 
         return image, tuple(targets)
 
-def get_data(train_csv_path, test_csv_path):
+def get_data(train_csv_path):
     """
     Gets train and test loader, performing Data Augmentation.
     Parameters: 
@@ -138,14 +138,14 @@ def get_data(train_csv_path, test_csv_path):
         label_dir=LABEL_DIR,
         anchors=ANCHORS,
     )
-    test_dataset = CustomYoloDataset(
-        test_csv_path,
-        transform=transforms,
-        S=[IMAGE_SIZE // 16, IMAGE_SIZE // 8],
-        img_dir=IMG_DIR,
-        label_dir=LABEL_DIR,
-        anchors=ANCHORS,
-    )
+    #test_dataset = CustomYoloDataset(
+    #    test_csv_path,
+    #    transform=transforms,
+    #    S=[IMAGE_SIZE // 16, IMAGE_SIZE // 8],
+    #    img_dir=IMG_DIR,
+    #    label_dir=LABEL_DIR,
+    #    anchors=ANCHORS,
+    #)
     train_loader = DataLoader(
         dataset=train_dataset,
         batch_size=BATCH_SIZE,
@@ -154,15 +154,15 @@ def get_data(train_csv_path, test_csv_path):
         pin_memory=True,
         
     )
-    test_loader = DataLoader(
-        dataset=test_dataset,
-        batch_size=BATCH_SIZE,
-        num_workers=NUM_WORKERS,
-        shuffle=False,
-        pin_memory=True,
- 
-    )
+    #test_loader = DataLoader(
+    #    dataset=test_dataset,
+    #    batch_size=BATCH_SIZE,
+    #    num_workers=NUM_WORKERS,
+    #    shuffle=False,
+    #    pin_memory=True,
+ #
+    #)
 
     
 
-    return train_loader, test_loader
+    return train_loader

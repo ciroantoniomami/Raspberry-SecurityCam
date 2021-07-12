@@ -283,7 +283,7 @@ if __name__ == "__main__":
     ANCHORS = [[(0.5309375, 0.7936855), (0.185625 , 0.439242), (0.081953 , 0.2478555   )], [(0.04875  , 0.125694 ), (0.014375 , 0.03857 ), (0.025    , 0.075047  )]]
 
     
-    train_loader, test_loader = get_data('dataset/train.csv','dataset/test.csv')
+    train_loader = get_data('dataset/trainmodified.csv')
     
     scaled_anchors = (
         torch.tensor(ANCHORS)
