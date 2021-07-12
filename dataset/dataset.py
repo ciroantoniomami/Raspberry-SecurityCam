@@ -18,7 +18,7 @@ class CustomYoloDataset(Dataset):
     """
     A custom Dataset class for the Yolo model
     """
-    def __init__(self, csv_file, img_dir, label_dir, anchors, image_size=416, S=[26, 52],C=2, transform=None ):
+    def __init__(self, csv_file, img_dir, label_dir, anchors, image_size=416, S=[13, 26],C=2, transform=None ):
         self.annotations = pd.read_csv(csv_file)
         self.img_dir = img_dir
         self.label_dir = label_dir
@@ -133,7 +133,7 @@ def get_data(train_csv_path):
     train_dataset = CustomYoloDataset(
         train_csv_path,
         transform=transforms,
-        S=[IMAGE_SIZE // 16, IMAGE_SIZE // 8],
+        S=[IMAGE_SIZE // 32, IMAGE_SIZE // 16],
         img_dir=IMG_DIR,
         label_dir=LABEL_DIR,
         anchors=ANCHORS,
