@@ -128,7 +128,7 @@ def get_data(train_csv_path):
 
         ToTensorV2(),
     ],
-    bbox_params=A.BboxParams(format="yolo", min_visibility=0.4, label_fields=[]),
+    bbox_params=A.BboxParams(format="coco", min_visibility=0.4, label_fields=[]),
     
     )
 
