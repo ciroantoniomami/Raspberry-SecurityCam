@@ -37,7 +37,7 @@ class CustomYoloDataset(Dataset):
     def __getitem__(self, index):
         label_path = os.path.join(self.label_dir, self.annotations.iloc[index, 1])
         # Conversion from  [class label, x, y, width, height] to [x, y, width, height, class label]
-        bboxes = np.roll(np.loadtxt(fname=label_path, delimiter=" ", ndmin=2), 4, axis=1).tolist() 
+        bboxes = np.roll(np.loadtxt(fname=label_path, ndmin=2), 4, axis=1).tolist() 
         img_path = os.path.join(self.img_dir, self.annotations.iloc[index, 0])
         image = cv2.imread(img_path) 
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)

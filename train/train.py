@@ -278,7 +278,7 @@ if __name__ == "__main__":
     optimizer_RAdam = RAdam(model.parameters(), lr=0.001/5, weight_decay=0.005)
     loss_fn = Loss()
     S=[13, 26]
-    num_epochs = 200
+    num_epochs = 100
 
     ANCHORS = [[(0.5309375, 0.7936855), (0.185625 , 0.439242), (0.081953 , 0.2478555   )], [(0.04875  , 0.125694 ), (0.014375 , 0.03857 ), (0.025    , 0.075047  )]]
 
