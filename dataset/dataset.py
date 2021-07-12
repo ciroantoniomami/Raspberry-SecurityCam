@@ -122,7 +122,7 @@ def get_data(train_csv_path):
         #    ],
         #    p=1.0,
         #),
-        A.HorizontalFlip(p=0.5),
+        #A.HorizontalFlip(p=0.5),
         A.Normalize(mean=[0., 0., 0.], std=[1., 1., 1.], max_pixel_value=255,),
         A.Downscale (scale_min=0.25, scale_max=0.25, interpolation=0, always_apply=True, p=1),
         A.MotionBlur(p=1),
