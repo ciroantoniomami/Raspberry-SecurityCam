@@ -90,7 +90,7 @@ def load_dataset(csv_file,labels):
 
         label_path = os.path.join(labels, annotations.iloc[index, 1])
         print(label_path)
-        bboxes = np.roll(np.loadtxt(fname=label_path, delimiter=" ", ndmin=2), 4, axis=1).tolist()
+        bboxes = np.roll(np.genfromtxt(fname=label_path, delimiter=" "), 4, axis=1).tolist()
 
         for box in bboxes:
             _, _, width, height, _ = box 
@@ -103,7 +103,7 @@ def load_dataset(csv_file,labels):
 if __name__ == '__main__':
 
     os.chdir("..")
-    data = load_dataset('dataset/trainperson.csv', 'dataset/labels2014')
+    data = load_dataset('dataset/train.csv', 'dataset/labels')
     out = kmeans(data, k=6)
     print("Accuracy: {:.2f}%".format(avg_iou(data, out) * 100))
     print("Boxes:\n {}".format(out))
