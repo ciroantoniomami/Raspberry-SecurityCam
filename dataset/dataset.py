@@ -54,10 +54,11 @@ class CustomYoloDataset(Dataset):
 
         for box in bboxes:
             iou_anchors = iou_width_height(torch.tensor(box[2:4]), self.anchors)
-            anchor_indices = iou_anchors.argsort(descending=True, dim=0)
             x, y, width, height, class_label = box
             if class_label!=0:
                 continue
+            anchor_indices = iou_anchors.argsort(descending=True, dim=0)
+            
             has_anchor = [False] * 3  
             for anchor_idx in anchor_indices:
                 scale_idx = anchor_idx // self.num_anchors_per_scale
@@ -128,7 +129,7 @@ def get_data(train_csv_path):
 
         ToTensorV2(),
     ],
-    bbox_params=A.BboxParams(format="coco", min_visibility=0.4, label_fields=[]),
+    bbox_params=A.BboxParams(format="yolo", min_visibility=0.4, label_fields=[]),
     
     )
 
