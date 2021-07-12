@@ -103,7 +103,7 @@ def load_dataset(csv_file,labels):
 if __name__ == '__main__':
 
     os.chdir("..")
-    data = load_dataset('dataset/train.csv', 'dataset/labels')
+    data = load_dataset('dataset/trainperson.csv', 'dataset/labels2014')
     out = kmeans(data, k=6)
     print("Accuracy: {:.2f}%".format(avg_iou(data, out) * 100))
     print("Boxes:\n {}".format(out))
