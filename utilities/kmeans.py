@@ -90,7 +90,7 @@ def load_dataset(csv_file,labels):
 
         label_path = os.path.join(labels, annotations.iloc[index, 1])
         print(label_path)
-        bboxes = np.roll(np.loadtxt(fname=label_path, delimiter=" ",ndmin=2), 4, axis=1).tolist()
+        bboxes = np.roll(np.loadtxt(fname=label_path, delimiter=" ",dtype=float, skiprows=1,ndmin=2), 4, axis=1).tolist()
 
 
         for box in bboxes:
