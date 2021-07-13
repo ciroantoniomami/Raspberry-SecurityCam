@@ -298,7 +298,7 @@ if __name__ == "__main__":
     
     if str(sys.argv[-1]) == "RADAM":
         optimizer = optimizer_RAdam
-        model_save_name = 'models/coco2.pt'
+        model_save_name = 'models/model3.pt'
         scheduler = None
 
     scaler = torch.cuda.amp.GradScaler()
