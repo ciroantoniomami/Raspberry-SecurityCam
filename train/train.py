@@ -280,7 +280,7 @@ if __name__ == "__main__":
     S=[13, 26]
     num_epochs = 20
 
-    ANCHORS = [[(0.5309375, 0.7936855), (0.185625 , 0.439242), (0.081953 , 0.2478555   )], [(0.04875  , 0.125694 ), (0.014375 , 0.03857 ), (0.025    , 0.075047  )]]
+    ANCHORS = [[(0.2309375, 0.7936855), (0.05625 , 0.339242), (0.021953 , 0.2478555   )], [(0.02875  , 0.125694 ), (0.004375 , 0.03857 ), (0.005    , 0.075047  )]]
 
     
     train_loader = get_data('dataset/trainmodified.csv')
@@ -298,7 +298,7 @@ if __name__ == "__main__":
     
     if str(sys.argv[-1]) == "RADAM":
         optimizer = optimizer_RAdam
-        model_save_name = 'models/coco.pt'
+        model_save_name = 'models/coco2.pt'
         scheduler = None
 
     scaler = torch.cuda.amp.GradScaler()

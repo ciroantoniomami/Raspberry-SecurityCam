@@ -104,7 +104,7 @@ def get_data(train_csv_path):
     IMG_DIR = DATASET + "/images/"
     LABEL_DIR = DATASET + "/labels/"
 
-    ANCHORS = [[(0.5309375, 0.7936855), (0.185625 , 0.439242), (0.081953 , 0.2478555   )], [(0.04875  , 0.125694 ), (0.014375 , 0.03857 ), (0.025    , 0.075047  )]]
+    ANCHORS = [[(0.2309375, 0.7936855), (0.05625 , 0.339242), (0.021953 , 0.2478555   )], [(0.02875  , 0.125694 ), (0.004375 , 0.03857 ), (0.005    , 0.075047  )]]
 
     
     transforms = A.Compose(
@@ -113,16 +113,16 @@ def get_data(train_csv_path):
         A.PadIfNeeded(
             min_height=IMAGE_SIZE, min_width=IMAGE_SIZE, border_mode=0
         ),
-        #A.OneOf(
-        #    [
-        #        A.ShiftScaleRotate( 
-        #            rotate_limit=20, p=0.5, border_mode=0
-        #        ),
-        #        A.Affine(shear=15, p=0.5),
-        #    ],
-        #    p=1.0,
-        #),
-        #A.HorizontalFlip(p=0.5),
+        A.OneOf(
+            [
+                A.ShiftScaleRotate( 
+                    rotate_limit=20, p=0.5, border_mode=0
+                ),
+                A.Affine(shear=15, p=0.5),
+            ],
+            p=1.0,
+        ),
+        A.HorizontalFlip(p=0.5),
         A.Normalize(mean=[0., 0., 0.], std=[1., 1., 1.], max_pixel_value=255,),
         A.Downscale (scale_min=0.25, scale_max=0.25, interpolation=0, always_apply=True, p=1),
         A.MotionBlur(p=1),

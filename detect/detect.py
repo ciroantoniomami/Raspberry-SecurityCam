@@ -13,7 +13,7 @@ import telegram.bot as tl
 if __name__ == "__main__":
     bot =  tl.Bot(token = "1798061564:AAFRKoi3oXbEpdpT0ECpeoOcarfGB-OQNWU")
 
-    ANCHORS = [[(0.5309375, 0.7936855), (0.185625 , 0.439242), (0.081953 , 0.2478555   )], [(0.04875  , 0.125694 ), (0.014375 , 0.03857 ), (0.025    , 0.075047  )]]
+    ANCHORS = [[(0.2309375, 0.7936855), (0.05625 , 0.339242), (0.021953 , 0.2478555   )], [(0.02875  , 0.125694 ), (0.004375 , 0.03857 ), (0.005    , 0.075047  )]]
     S = [13, 26]
     scaled_anchors = torch.tensor(ANCHORS) / (
         1 / torch.tensor(S).unsqueeze(1).unsqueeze(1).repeat(1, 3, 2))
@@ -23,7 +23,7 @@ if __name__ == "__main__":
     
 
     cap = cv.VideoCapture(0)
-    
+  
     if not cap.isOpened():
         print("Cannot open camera")
         exit()
@@ -64,6 +64,7 @@ if __name__ == "__main__":
         cv.putText(frame, fps, (0, 30), font, 0.5, (255, 0, 0), 1, cv.LINE_AA)
         
         cv.imshow('detecter', frame)
+
  
         c = cv.waitKey(1)
         if c == 27:
