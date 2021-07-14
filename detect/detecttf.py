@@ -7,9 +7,10 @@ import tensorflow as tf
 import torch
 from torchvision import transforms
 from utilities.utils import cells_to_bboxes, non_max_suppression
-
+import telegram.bot as tl
+import telegram_send
 if __name__ == '__main__':
-    
+    bot =  tl.Bot(token = "1798061564:AAFRKoi3oXbEpdpT0ECpeoOcarfGB-OQNWU")
 
     ANCHORS = [[(0.2309375, 0.7936855), (0.05625 , 0.339242), (0.021953 , 0.2478555   )], [(0.02875  , 0.125694 ), (0.004375 , 0.03857 ), (0.005    , 0.075047  )]]
     S = [13, 26]
@@ -40,6 +41,7 @@ if __name__ == '__main__':
     history_fps = []
 
     while True:
+        strunz = False
         r, frame = cap.read()
         frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
         frame = cv.resize(frame, (416, 416))
@@ -71,6 +73,7 @@ if __name__ == '__main__':
             if box[0] == 0: # mask
                     color = (0,250,154)
                     label = 'person'
+                    strunz = True
         
             height, width = 416, 416
             p = box[1]
@@ -81,28 +84,31 @@ if __name__ == '__main__':
     
             CV2_frame = cv.rectangle(frame, p0, p1, color, thickness=2)
             cv.putText(CV2_frame, label + "{:.2f}".format(p*100) + '%', (int((box[0] - box[2]/2)*height), int((box[1] - box[3]/2)*width)-10), cv.FONT_HERSHEY_SIMPLEX, 0.9, color, 2)
-            
+            if strunz:
+                cv.imwrite('photo.jpg',frame)
+                telegram_send.send(messages=["ATTENTO ALLO STRUNZZ!"])
+                bot.send_photo(chat_id=456383400, photo=open('photo.jpg', 'rb'))
 
 
         
-        count += 1
-        fps = 1/(new_frame_time-prev_frame_time)
-        history_fps.append(fps)
-        
-        prev_frame_time = new_frame_time
-        fps = "{:3.4f}".format(fps)
-        fps = "FPS: " + fps
-        cv.putText(frame, fps, (0, 30), font, 0.5, (255, 0, 0), 1, cv.LINE_AA)
-        
-        
-
-        cv.imshow('detecter', frame)
- 
-        c = cv.waitKey(1)
-        if c == 27:
-            cap.release()
-            cv.destroyAllWindows()
-            break
+        #count += 1
+        #fps = 1/(new_frame_time-prev_frame_time)
+        #history_fps.append(fps)
+        #
+        #prev_frame_time = new_frame_time
+        #fps = "{:3.4f}".format(fps)
+        #fps = "FPS: " + fps
+        #cv.putText(frame, fps, (0, 30), font, 0.5, (255, 0, 0), 1, cv.LINE_AA)
+        #
+        #
+#
+        #cv.imshow('detecter', frame)
+ #
+        #c = cv.waitKey(1)
+        #if c == 27:
+        #    cap.release()
+        #    cv.destroyAllWindows()
+        #    break
     
     
     end = time.perf_counter()
