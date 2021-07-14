@@ -11,16 +11,14 @@ from utilities.utils import cells_to_bboxes, non_max_suppression
 if __name__ == '__main__':
     
 
-    ANCHORS = [[(0.275,   0.320312), (0.068, 0.113281), (0.017,  0.03)],
-               [(0.03,   0.056), (0.01,   0.018), (0.006,   0.01)]]
+    ANCHORS = [[(0.2309375, 0.7936855), (0.05625 , 0.339242), (0.021953 , 0.2478555   )], [(0.02875  , 0.125694 ), (0.004375 , 0.03857 ), (0.005    , 0.075047  )]]
     S = [13, 26]
     scaled_anchors = torch.tensor(ANCHORS) / (
         1 / torch.tensor(S).unsqueeze(1).unsqueeze(1).repeat(1, 3, 2))
 
-    if str(sys.argv[-1]) == "model":
-        interpreter = tf.lite.Interpreter('models/model.tflite')
-    if str(sys.argv[-1]) == "pmodel":
-        interpreter = tf.lite.Interpreter('models/pmodel.tflite')
+    interpreter = tf.lite.Interpreter('models/model.tflite')
+
+
 
     interpreter.allocate_tensors()
     input_details = interpreter.get_input_details()
@@ -72,10 +70,8 @@ if __name__ == '__main__':
 
             if box[0] == 0: # mask
                     color = (0,250,154)
-                    label = 'mask'
-            else: # no mask
-                    color = (255, 0, 0)
-                    label = 'no mask'
+                    label = 'person'
+        
             height, width = 416, 416
             p = box[1]
             box = box[2:]
