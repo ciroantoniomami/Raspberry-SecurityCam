@@ -26,22 +26,24 @@ if __name__ == '__main__':
     output_details= interpreter.get_output_details()
 
 
-    cap = cv.VideoCapture(0)
+    #cap = cv.VideoCapture(0)
+    #
+    #if not cap.isOpened():
+    #    print("Cannot open camera")
+    #    exit()
     
-    if not cap.isOpened():
-        print("Cannot open camera")
-        exit()
+    #start = time.perf_counter()
+    #count = 0
+#
+    #prev_frame_time = 0
+    #new_frame_time = 0
+#
+    #history_fps = []
     
-    start = time.perf_counter()
-    count = 0
-
-    prev_frame_time = 0
-    new_frame_time = 0
-
-    history_fps = []
-
     while True:
         strunz = False
+        cap = cv.VideoCapture(0)
+        time.sleep(2)
         r, frame = cap.read()
         frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
         frame = cv.resize(frame, (416, 416))
@@ -91,26 +93,15 @@ if __name__ == '__main__':
 
 
         
-        count += 1
-        fps = 1/(new_frame_time-prev_frame_time)
-        history_fps.append(fps)
-        
-        prev_frame_time = new_frame_time
-        fps = "{:3.4f}".format(fps)
-        fps = "FPS: " + fps
-        cv.putText(frame, fps, (0, 30), font, 0.5, (255, 0, 0), 1, cv.LINE_AA)
         
         
 
         cv.imshow('detecter', frame)
  
         c = cv.waitKey(1)
+        cap.release()
         if c == 27:
-            cap.release()
             cv.destroyAllWindows()
             break
-        time.sleep(2)
     
-    
-    end = time.perf_counter()
-    print(count/(end-start))
+  
