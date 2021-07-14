@@ -109,6 +109,7 @@ if __name__ == '__main__':
             cap.release()
             cv.destroyAllWindows()
             break
+        time.sleep(2)
     
     
     end = time.perf_counter()
