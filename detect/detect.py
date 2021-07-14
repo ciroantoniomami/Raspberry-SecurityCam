@@ -11,7 +11,7 @@ import telegram_send
 import telegram.bot as tl
 
 if __name__ == "__main__":
-    bot =  tl.Bot(token = "1798061564:AAFRKoi3oXbEpdpT0ECpeoOcarfGB-OQNWU")
+
 
     ANCHORS = [[(0.2309375, 0.7936855), (0.05625 , 0.339242), (0.021953 , 0.2478555   )], [(0.02875  , 0.125694 ), (0.004375 , 0.03857 ), (0.005    , 0.075047  )]]
     S = [13, 26]
@@ -52,7 +52,7 @@ if __name__ == "__main__":
         #if strunz:
             #cv.imwrite('photo.jpg',frame)
             #telegram_send.send(messages=["ATTENTO ALLO STRUNZZ!"])
-            #bot.send_photo(chat_id=456383400, photo=open('photo.jpg', 'rb'))
+            #
 
         count += 1
         fps = 1/(new_frame_time-prev_frame_time)
