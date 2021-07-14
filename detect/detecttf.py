@@ -91,24 +91,24 @@ if __name__ == '__main__':
 
 
         
-        #count += 1
-        #fps = 1/(new_frame_time-prev_frame_time)
-        #history_fps.append(fps)
-        #
-        #prev_frame_time = new_frame_time
-        #fps = "{:3.4f}".format(fps)
-        #fps = "FPS: " + fps
-        #cv.putText(frame, fps, (0, 30), font, 0.5, (255, 0, 0), 1, cv.LINE_AA)
-        #
-        #
-#
-        #cv.imshow('detecter', frame)
- #
-        #c = cv.waitKey(1)
-        #if c == 27:
-        #    cap.release()
-        #    cv.destroyAllWindows()
-        #    break
+        count += 1
+        fps = 1/(new_frame_time-prev_frame_time)
+        history_fps.append(fps)
+        
+        prev_frame_time = new_frame_time
+        fps = "{:3.4f}".format(fps)
+        fps = "FPS: " + fps
+        cv.putText(frame, fps, (0, 30), font, 0.5, (255, 0, 0), 1, cv.LINE_AA)
+        
+        
+
+        cv.imshow('detecter', frame)
+ 
+        c = cv.waitKey(1)
+        if c == 27:
+            cap.release()
+            cv.destroyAllWindows()
+            break
     
     
     end = time.perf_counter()
